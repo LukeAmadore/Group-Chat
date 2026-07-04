@@ -318,17 +318,17 @@ body{background:var(--bg);color:var(--t1);font-family:var(--sans);font-size:14px
 <div id="app"></div>
 <script>
 var DIFF = {
-  easy:{label:'Same City, Still Close',color:'#7FA06E',eng:68,ap:65,part:79,trust:52,budget:50000,cap:4,polcap:40,tree:[],voice:'Everyone still lives twenty minutes apart. Group dinners happen without much effort. Your job is to make sure "easy" doesn’t quietly become "assumed."'},
-  normal:{label:'Scattered But Trying',color:'#C7A24A',eng:62,ap:48,part:74,trust:28,budget:40000,cap:3,polcap:25,tree:[],voice:'Three years of "we should really get everyone together." Nobody’s actually done it. You’ve got some bandwidth and one year to change that pattern.'},
-  hard:{label:'Grown Apart',color:'#D17A57',eng:51,ap:38,part:58,trust:12,budget:25000,cap:2,polcap:10,tree:[],voice:'Different cities, different lives, a group chat that’s mostly memes now. Theo asked, half-joking, why you’re even trying. You’re stretched thin and low on goodwill. Go.'}
+  easy:{label:'Same City, Still Close',color:'#7FA06E',eng:68,ap:65,part:79,trust:52,budget:500,cap:4,polcap:40,tree:[],voice:'Everyone still lives twenty minutes apart. Group dinners happen without much effort. Your job is to make sure "easy" doesn’t quietly become "assumed."'},
+  normal:{label:'Scattered But Trying',color:'#C7A24A',eng:62,ap:48,part:74,trust:28,budget:400,cap:3,polcap:25,tree:[],voice:'Three years of "we should really get everyone together." Nobody’s actually done it. You’ve got some bandwidth and one year to change that pattern.'},
+  hard:{label:'Grown Apart',color:'#D17A57',eng:51,ap:38,part:58,trust:12,budget:250,cap:2,polcap:10,tree:[],voice:'Different cities, different lives, a group chat that’s mostly memes now. Theo asked, half-joking, why you’re even trying. You’re stretched thin and low on goodwill. Go.'}
 };
 
 var ZONES = [
-  {id:'skeptical',label:'Distant',    min:0,max:19,color:'#D17A57',rate:1},
-  {id:'cautious', label:'Cordial',    min:20,max:39,color:'#C08A3E',rate:3},
-  {id:'building', label:'Comfortable',min:40,max:59,color:'#C39644',rate:4},
-  {id:'engaged',  label:'Close',      min:60,max:79,color:'#C7A24A',rate:5},
-  {id:'champion', label:'Ride-or-Die',min:80,max:100,color:'#7FA06E',rate:8}
+  {id:'skeptical',label:'Acquaintance', min:0,max:19,color:'#D17A57',rate:1},
+  {id:'cautious', label:'Friend',       min:20,max:39,color:'#C08A3E',rate:3},
+  {id:'building', label:'Close Friend', min:40,max:59,color:'#C39644',rate:4},
+  {id:'engaged',  label:'Confidant',    min:60,max:79,color:'#C7A24A',rate:5},
+  {id:'champion', label:'Group Leader', min:80,max:100,color:'#7FA06E',rate:8}
 ];
 var ZONE_ORDER = ZONES.map(function(z){return z.id;});
 var GRADE_COLORS = {S:'#7FA06E',A:'#7FA06E',B:'#5D9385',C:'#C08A3E',D:'#D17A57',F:'#D17A57'};
@@ -355,22 +355,22 @@ function II(paths){
 }
 
 var NODES = {
-  'infra-l1':{track:'infra',level:1,icon:II('<path d="M8 3h8v4H8z"/><rect x="5" y="5" width="14" height="16" rx="1.5"/><path d="M9 11h6M9 15h6"/>'),name:'The Group Chat Itself',unlocks:'Getting everyone in one thread. Turnout on plans becomes trackable &#8212; you can actually tell who saw the invite.',cost:4000,phase:1,pre:[],effect:{part:2}},
-  'infra-l2':{track:'infra',level:2,icon:II('<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M9 20h6M12 16v4"/>'),name:'The Shared Calendar',unlocks:'A calendar everyone actually checks. The ceiling on Reliability improvement lifts &#8212; plans stop depending on your memory alone.',cost:30000,phase:2,pre:['infra-l1'],effect:{ap:2}},
-  'infra-l3':{track:'infra',level:3,icon:II('<path d="M5 20V10M11 20V4M17 20V13"/><path d="M3 20h18"/>'),name:'The Photo Album',unlocks:'A shared place where the group\'s history lives. Suggesting to hang out stops needing a justification &#8212; everyone can see there\'s a real "us" here.',cost:70000,phase:3,pre:['infra-l2'],effect:{trust:2}},
-  'infra-l4':{track:'infra',level:4,icon:II('<circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 6h8M6 8v8M18 8v8M8 18h8"/>'),name:'Five Years of Us',unlocks:'Every trip, every dinner, every dumb inside joke, all connected. You can show what changed, and what it cost when nobody kept track.',cost:100000,phase:4,pre:['infra-l3'],effect:{ap:3,part:2}},
-  'mgr-l1':{track:'mgr',level:1,icon:II('<path d="M12 6c-2-1.3-4.5-2-7-2v13c2.5 0 5 .7 7 2 2-1.3 4.5-2 7-2V4c-2.5 0-5 .7-7 2z"/><path d="M12 6v13"/>'),name:'The Standing Plan',unlocks:'A recurring thing &#8212; monthly dinner, a standing call &#8212; so nobody has to ask if it\'s happening.',cost:5000,phase:1,pre:[],effect:{ap:2}},
-  'mgr-l2':{track:'mgr',level:2,icon:II('<path d="M12 4 2 8l10 4 10-4-10-4z"/><path d="M6 10.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-5.5"/>'),name:'Remembering the Details',unlocks:'You stop missing the big things &#8212; a promotion, a breakup, a hard week. People notice when you remember without being told.',cost:12000,phase:2,pre:['mgr-l1'],effect:{ap:3}},
-  'mgr-l3':{track:'mgr',level:3,icon:II('<circle cx="12" cy="12" r="7.2"/><circle cx="12" cy="12" r="3.4"/><circle cx="12" cy="12" r=".7" fill="currentColor"/>'),name:'The Real Check-in',unlocks:'Asking how people are actually doing, and following up on the answer. The primary driver of Reliability.',cost:24000,phase:3,pre:['mgr-l2'],effect:{ap:4}},
-  'mgr-l4':{track:'mgr',level:4,icon:II('<circle cx="8" cy="9" r="2.6"/><circle cx="17" cy="9" r="2.6"/><path d="M2.5 19c0-3 2.4-5.4 5.5-5.4s5.5 2.4 5.5 5.4M12.5 19c0-2.6 2-4.7 4.5-4.7s4.5 2.1 4.5 4.7"/>'),name:'Showing Up For The Hard Stuff',unlocks:'The inconvenient moments &#8212; move day, a hospital visit, a 1am call. Nobody has to ask twice anymore.',cost:40000,phase:4,pre:['mgr-l3'],effect:{ap:4,trust:2}},
-  'comms-l1':{track:'comms',level:1,icon:II('<path d="M3 10v4h3l6 4V6l-6 4H3z"/><path d="M16 9a4 4 0 0 1 0 6"/>'),name:'The Recap Text',unlocks:'A quick "you were missed, here\'s what happened" text to whoever couldn\'t make it. Turnout on the next thing goes up.',cost:4000,phase:1,pre:[],effect:{part:2}},
-  'comms-l2':{track:'comms',level:2,icon:II('<path d="M12 3 3 7.5 12 12l9-4.5L12 3z"/><path d="M3 7.5V16l9 4.5V12M21 7.5V16l-9 4.5"/>'),name:'Personal Invites',unlocks:'Actually texting people instead of just dropping it in the group chat. Turnout responds &#8212; a direct ask lands different than a message buried under twenty others.',cost:8000,phase:2,pre:['comms-l1'],effect:{part:3}},
-  'comms-l3':{track:'comms',level:3,icon:II('<rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M9 21h6M12 17v4"/>'),name:'Keeping People in the Loop',unlocks:'People can see what\'s actually been happening even when they miss a stretch &#8212; who\'s up to what, what the plans were. Belief that staying close is possible from a distance grows.',cost:16000,phase:3,pre:['comms-l2','infra-l2'],effect:{ap:3}},
-  'comms-l4':{track:'comms',level:4,icon:II('<path d="M4 12a8 8 0 0 1 14-5.2M20 12a8 8 0 0 1-14 5.2"/><path d="M18 3v4h-4M6 21v-4h4"/>'),name:'The Whole Picture',unlocks:'Anyone can trace the thread from "we should hang out" to a plan that actually happened. The loop closes &#8212; showing up stops feeling optional.',cost:32000,phase:4,pre:['comms-l3'],effect:{part:4,ap:2}},
-  'se-l1':{track:'se',level:1,icon:II('<rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 9h16M8 3v4M16 3v4"/>'),name:'Actually Asking for Something',unlocks:'You ask the group for a favor instead of only ever offering one. Nobody\'s surprised you needed something &#8212; Closeness goes up when it\'s not just you giving.',cost:6000,phase:1,pre:[],effect:{trust:2}},
-  'se-l2':{track:'se',level:2,icon:II('<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.2 2.5 13.8 0 16M12 4c-2.5 2.2-2.5 13.8 0 16"/>'),name:'Other People Start the Plans',unlocks:'Someone besides you suggests hanging out, unprompted. Momentum builds even when you\'re not the one driving it.',cost:12000,phase:2,pre:['se-l1'],effect:{trust:3}},
-  'se-l3':{track:'se',level:3,icon:II('<path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2z"/><path d="M9 4v14M15 6v14"/>'),name:'Reading the Room Before It Cracks',unlocks:'You stop being the last to know something\'s wrong. Shifts in the group become visible before someone has to say it out loud.',cost:20000,phase:3,pre:['se-l2'],effect:{trust:3}},
-  'se-l4':{track:'se',level:4,icon:II('<circle cx="8" cy="8" r="4"/><circle cx="16" cy="16" r="4"/><path d="M11 11l2 2"/>'),name:'Everyone Shows Up for Everyone',unlocks:'It\'s not just you keeping this group alive anymore. People show up for each other without you brokering it.',cost:30000,phase:4,pre:['se-l3'],effect:{trust:4}}
+  'infra-l1':{track:'infra',level:1,icon:II('<path d="M8 3h8v4H8z"/><rect x="5" y="5" width="14" height="16" rx="1.5"/><path d="M9 11h6M9 15h6"/>'),name:'The Group Chat Itself',unlocks:'Getting everyone in one thread. Turnout on plans becomes trackable &#8212; you can actually tell who saw the invite.',cost:40,phase:1,pre:[],effect:{part:2}},
+  'infra-l2':{track:'infra',level:2,icon:II('<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M9 20h6M12 16v4"/>'),name:'The Shared Calendar',unlocks:'A calendar everyone actually checks. The ceiling on Reliability improvement lifts &#8212; plans stop depending on your memory alone.',cost:300,phase:2,pre:['infra-l1'],effect:{ap:2}},
+  'infra-l3':{track:'infra',level:3,icon:II('<path d="M5 20V10M11 20V4M17 20V13"/><path d="M3 20h18"/>'),name:'The Photo Album',unlocks:'A shared place where the group\'s history lives. Suggesting to hang out stops needing a justification &#8212; everyone can see there\'s a real "us" here.',cost:700,phase:3,pre:['infra-l2'],effect:{trust:2}},
+  'infra-l4':{track:'infra',level:4,icon:II('<circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 6h8M6 8v8M18 8v8M8 18h8"/>'),name:'Five Years of Us',unlocks:'Every trip, every dinner, every dumb inside joke, all connected. You can show what changed, and what it cost when nobody kept track.',cost:1000,phase:4,pre:['infra-l3'],effect:{ap:3,part:2}},
+  'mgr-l1':{track:'mgr',level:1,icon:II('<path d="M12 6c-2-1.3-4.5-2-7-2v13c2.5 0 5 .7 7 2 2-1.3 4.5-2 7-2V4c-2.5 0-5 .7-7 2z"/><path d="M12 6v13"/>'),name:'The Standing Plan',unlocks:'A recurring thing &#8212; monthly dinner, a standing call &#8212; so nobody has to ask if it\'s happening.',cost:50,phase:1,pre:[],effect:{ap:2}},
+  'mgr-l2':{track:'mgr',level:2,icon:II('<path d="M12 4 2 8l10 4 10-4-10-4z"/><path d="M6 10.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-5.5"/>'),name:'Remembering the Details',unlocks:'You stop missing the big things &#8212; a promotion, a breakup, a hard week. People notice when you remember without being told.',cost:120,phase:2,pre:['mgr-l1'],effect:{ap:3}},
+  'mgr-l3':{track:'mgr',level:3,icon:II('<circle cx="12" cy="12" r="7.2"/><circle cx="12" cy="12" r="3.4"/><circle cx="12" cy="12" r=".7" fill="currentColor"/>'),name:'The Real Check-in',unlocks:'Asking how people are actually doing, and following up on the answer. The primary driver of Reliability.',cost:240,phase:3,pre:['mgr-l2'],effect:{ap:4}},
+  'mgr-l4':{track:'mgr',level:4,icon:II('<circle cx="8" cy="9" r="2.6"/><circle cx="17" cy="9" r="2.6"/><path d="M2.5 19c0-3 2.4-5.4 5.5-5.4s5.5 2.4 5.5 5.4M12.5 19c0-2.6 2-4.7 4.5-4.7s4.5 2.1 4.5 4.7"/>'),name:'Showing Up For The Hard Stuff',unlocks:'The inconvenient moments &#8212; move day, a hospital visit, a 1am call. Nobody has to ask twice anymore.',cost:400,phase:4,pre:['mgr-l3'],effect:{ap:4,trust:2}},
+  'comms-l1':{track:'comms',level:1,icon:II('<path d="M3 10v4h3l6 4V6l-6 4H3z"/><path d="M16 9a4 4 0 0 1 0 6"/>'),name:'The Recap Text',unlocks:'A quick "you were missed, here\'s what happened" text to whoever couldn\'t make it. Turnout on the next thing goes up.',cost:40,phase:1,pre:[],effect:{part:2}},
+  'comms-l2':{track:'comms',level:2,icon:II('<path d="M12 3 3 7.5 12 12l9-4.5L12 3z"/><path d="M3 7.5V16l9 4.5V12M21 7.5V16l-9 4.5"/>'),name:'Personal Invites',unlocks:'Actually texting people instead of just dropping it in the group chat. Turnout responds &#8212; a direct ask lands different than a message buried under twenty others.',cost:80,phase:2,pre:['comms-l1'],effect:{part:3}},
+  'comms-l3':{track:'comms',level:3,icon:II('<rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M9 21h6M12 17v4"/>'),name:'Keeping People in the Loop',unlocks:'People can see what\'s actually been happening even when they miss a stretch &#8212; who\'s up to what, what the plans were. Belief that staying close is possible from a distance grows.',cost:160,phase:3,pre:['comms-l2','infra-l2'],effect:{ap:3}},
+  'comms-l4':{track:'comms',level:4,icon:II('<path d="M4 12a8 8 0 0 1 14-5.2M20 12a8 8 0 0 1-14 5.2"/><path d="M18 3v4h-4M6 21v-4h4"/>'),name:'The Whole Picture',unlocks:'Anyone can trace the thread from "we should hang out" to a plan that actually happened. The loop closes &#8212; showing up stops feeling optional.',cost:320,phase:4,pre:['comms-l3'],effect:{part:4,ap:2}},
+  'se-l1':{track:'se',level:1,icon:II('<rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 9h16M8 3v4M16 3v4"/>'),name:'Actually Asking for Something',unlocks:'You ask the group for a favor instead of only ever offering one. Nobody\'s surprised you needed something &#8212; Closeness goes up when it\'s not just you giving.',cost:60,phase:1,pre:[],effect:{trust:2}},
+  'se-l2':{track:'se',level:2,icon:II('<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.2 2.5 13.8 0 16M12 4c-2.5 2.2-2.5 13.8 0 16"/>'),name:'Other People Start the Plans',unlocks:'Someone besides you suggests hanging out, unprompted. Momentum builds even when you\'re not the one driving it.',cost:120,phase:2,pre:['se-l1'],effect:{trust:3}},
+  'se-l3':{track:'se',level:3,icon:II('<path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2z"/><path d="M9 4v14M15 6v14"/>'),name:'Reading the Room Before It Cracks',unlocks:'You stop being the last to know something\'s wrong. Shifts in the group become visible before someone has to say it out loud.',cost:200,phase:3,pre:['se-l2'],effect:{trust:3}},
+  'se-l4':{track:'se',level:4,icon:II('<circle cx="8" cy="8" r="4"/><circle cx="16" cy="16" r="4"/><path d="M11 11l2 2"/>'),name:'Everyone Shows Up for Everyone',unlocks:'It\'s not just you keeping this group alive anymore. People show up for each other without you brokering it.',cost:300,phase:4,pre:['se-l3'],effect:{trust:4}}
 };
 
 var TRACKS = {
@@ -391,14 +391,14 @@ var PRE_SURVEY = [
   }
 ];
 
-// Fixed annual budgets — same each year, grade bonus/cut applied as flat addition
-var BASE_BUDGETS = {easy:50000, normal:40000, hard:25000};
+// Fixed annual bandwidth — same each year, grade bonus/cut applied as flat addition
+var BASE_BUDGETS = {easy:500, normal:400, hard:250};
 
-// Grade flat bonus/cut applied to next year's budget
-var GRADE_BUDGET_DELTA = {S:8000,A:5000,B:2000,C:0,D:-3000,F:-6000};
+// Grade flat bonus/cut applied to next year's bandwidth
+var GRADE_BUDGET_DELTA = {S:80,A:50,B:20,C:0,D:-30,F:-60};
 
 // Annual ceiling on POSITIVE trust gained per year, shared across every source (decision
-// options, node effects, ambient events, grade-shift, recommendation landings). Losses are
+// options, node effects, ambient events, grade-shift). Losses are
 // never capped. Applied before any number is displayed, so the resolve screen always shows
 // the real, already-capped amount — nothing is hidden after the fact. Easy is uncapped by
 // design (it is meant to hand a good player Champion). See CLAUDE.md balance notes.
@@ -406,13 +406,13 @@ var TRUST_ANNUAL_CAP = {easy:null, normal:10, hard:13};
 
 function calcNextBudget(diff, year, grade, trustZone, currentBudget) {
   var base = BASE_BUDGETS[diff]||BASE_BUDGETS.normal;
-  // Carry over 10% of unspent budget (rest went to overhead)
+  // Carry over 10% of unspent bandwidth (rest went to overhead)
   var carryover = currentBudget ? Math.round(currentBudget * 0.10) : 0;
   // Grade bonus/cut
   var gradeDelta = GRADE_BUDGET_DELTA[grade]||0;
-  // Distant zone: additional -$2K penalty (people pulling back, not chipping in)
-  var zonePenalty = trustZone==='skeptical' ? -2000 : 0;
-  return Math.max(5000, base + carryover + gradeDelta + zonePenalty);
+  // Distant zone: additional -$20 penalty (people pulling back, not chipping in)
+  var zonePenalty = trustZone==='skeptical' ? -20 : 0;
+  return Math.max(50, base + carryover + gradeDelta + zonePenalty);
 }
 
 function calcGrade(ap, part, eng) {
@@ -662,84 +662,6 @@ function tierIds(tier){
 }
 
 
-// ============================================================
-// RECOMMENDATIONS SYSTEM
-// ============================================================
-// Two slots per year, issued at postsurvey review
-// Cost PC, land probability by Trust zone
-// Consequence appears in NEXT year's postsurvey narrative
-
-var REC_DIMENSIONS = [
-  {id:'growth',    label:'Doing New Things Together',  owner:'Whoever Plans Next', score:'eng',   delta:4},
-  {id:'recognition',label:'Actually Being Noticed',    owner:'Whoever Noticed',    score:'ap',    delta:3},
-  {id:'comms',     label:'Staying in the Loop',        owner:'The Group Chat',     score:'part', delta:3},
-  {id:'safety',    label:'Feeling Safe to Say Things',  owner:'Whoever They Trust Most', score:'ap', delta:4},
-  {id:'mgr',       label:'Actually Following Through',  owner:'You',                score:'ap',    delta:5},
-];
-
-var SCORE_LABELS = {ap:'Reliability', part:'Turnout', eng:'Vibe'};
-
-var REC_LAND_PROB = {skeptical:0.20, cautious:0.40, building:0.58, engaged:0.75, champion:0.90};
-
-// Tiered recommendation costs based on diagnostic match
-// High-impact (matches what's actually broken): 18 PC, full landing prob
-// Medium-impact (partial signal): 12 PC, landing prob x0.85
-// Low-impact (no clear signal, risky): 6 PC, landing prob x0.60, trust dip if lands but score doesn't move
-var REC_TIERS = {
-  high:  {cost:18, probMod:1.00, label:'High Impact',  desc:'Addresses what the data actually shows. Costly, but the right move.'},
-  medium:{cost:12, probMod:0.85, label:'Moderate',     desc:'Related to the signal but not the primary driver. A reasonable bet.'},
-  low:   {cost:6,  probMod:0.60, label:'Low Signal',   desc:'No clear evidence this is what people need. Cheap, but risks backfiring if it lands without follow-through.'}
-};
-
-// If a high/medium-signal rec is deprioritized (not landed), the org feels it later:
-// genAmbient() delivers one of these as a one-time quarter event the following year
-// instead of the regular ambient roll (see S.recFallout).
-var REC_FALLOUT_TEXT = {
-  growth:      {text:'People mentioned wanting to try new things together this year. Nothing\'s really happened since, and people have noticed.', ap:-1, part:-1},
-  recognition: {text:'The "nobody notices when I\'m around" feeling from last year never really got addressed. A couple people have quietly stopped expecting to be noticed.', ap:-2},
-  comms:       {text:'People asked to be kept more in the loop after last year. The silence since then is doing its own kind of talking.', part:-2},
-  safety:      {text:'The "I don\'t feel like I can really say things" feeling from last year got deprioritized. A couple people have gone quiet again.', ap:-2},
-  mgr:         {text:'People asked for more follow-through after last year. Without it, a couple of them are visibly checked out.', ap:-3}
-};
-
-// Diagnostic signal: maps dimensions to which game conditions make them high/medium/low signal
-// Signal is computed at postsurvey review based on current game state
-// Returns 'high'|'medium'|'low' per dimension
-function getRecDiagnostic(dimId, ap, part, year, treeBuilt){
-  // Doing New Things Together: high signal when Reliability is low AND we're mid-game
-  if(dimId==='growth'){
-    if(ap<55&&year>=2) return 'high';
-    if(ap<65) return 'medium';
-    return 'low';
-  }
-  // Actually Being Noticed: high signal when Reliability is low AND turnout is decent (people show up but don't feel seen)
-  if(dimId==='recognition'){
-    if(ap<52&&part>=65) return 'high';
-    if(ap<62) return 'medium';
-    return 'low';
-  }
-  // Staying in the Loop: high signal when turnout is low (people aren't showing up = they're out of the loop)
-  if(dimId==='comms'){
-    if(part<68) return 'high';
-    if(part<76) return 'medium';
-    return 'low';
-  }
-  // Feeling Safe to Say Things: high signal when Reliability is very low early game
-  if(dimId==='safety'){
-    if(ap<50&&year<=3) return 'high';
-    if(ap<60) return 'medium';
-    return 'low';
-  }
-  // Actually Following Through: high signal when the Follow-Through track is underdeveloped
-  if(dimId==='mgr'){
-    var mgrBuilt=Object.keys(treeBuilt||{}).filter(function(id){return id.indexOf('mgr')===0;}).length;
-    if(mgrBuilt<2&&year>=2) return 'high';
-    if(mgrBuilt<3) return 'medium';
-    return 'low';
-  }
-  return 'medium';
-}
-
 var SITS = [
   {id:'y0-q1',q:1,tut:true,title:'The Thing Noah Said',char:'aisha',
    scenario:'Aisha forwarded you a text from Noah, from clear across the country: "not gonna lie, feels like nothing\'s really changed since I moved &#8212; nobody actually reaches out first." She added one line: "Worth addressing?"',
@@ -752,14 +674,14 @@ var SITS = [
    scenario:'Theo heard, secondhand, that "some people" think he\'s been distant lately. He asks you point-blank who said it &#8212; he wants to "actually talk to them about it." His intent is genuine.',
    opts:[
     {id:'a',badge:'DON\'T NAME NAMES',text:'Explain why you\'re not going to say who said what. Offer the general vibe instead.',slots:0,bud:0,pc:0,req:null,con:{trust:-1,ap:1,part:0,note:'Theo is mildly frustrated but respects it. Everyone else\'s trust in you holds.'}},
-    {id:'b',badge:'SET UP A GROUP HANG',text:'Offer to get everyone together so it can come up naturally, without you outing anyone.',slots:1,bud:400,pc:0,req:null,con:{trust:2,ap:2,part:0,note:'Theo feels supported. Nobody gets put on the spot.'}},
+    {id:'b',badge:'SET UP A GROUP HANG',text:'Offer to get everyone together so it can come up naturally, without you outing anyone.',slots:1,bud:4,pc:0,req:null,con:{trust:2,ap:2,part:0,note:'Theo feels supported. Nobody gets put on the spot.'}},
     {id:'c',badge:'TELL AISHA',text:'Flag to Aisha that Theo is pushing to know who said what. Protects the person but strains things with Theo.',slots:0,bud:0,pc:0,req:{pc:25},con:{trust:-3,ap:0,part:0,note:'Aisha backs you up. Theo feels managed, not supported.'}}
    ]},
   {id:'y0-q3',q:3,tut:false,title:'Ben Floats a Cheaper Option',char:'ben',
    scenario:'Ben mentions to Aisha, cc\'ing you, that the annual group trip might be worth reconsidering &#8212; a cheaper destination, maybe every other year instead of annual. He attaches a budget comparison.',
    opts:[
     {id:'a',badge:'ACKNOWLEDGE',text:'Acknowledge the question, say you\'ll think it over, and move on. Preserves the relationship.',slots:0,bud:0,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Ben feels heard. Nothing changes yet.'}},
-    {id:'b',badge:'ACTUALLY PRICE IT OUT',text:'Offer to actually compare costs for next year before deciding anything. Buys time, signals responsiveness.',slots:1,bud:300,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Ben appreciates it. You now have real numbers for next year.'}},
+    {id:'b',badge:'ACTUALLY PRICE IT OUT',text:'Offer to actually compare costs for next year before deciding anything. Buys time, signals responsiveness.',slots:1,bud:3,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Ben appreciates it. You now have real numbers for next year.'}},
     {id:'c',badge:'MAKE THE CASE',text:'Lay out directly what the trip means to the group and what would be lost by cutting it back.',slots:1,bud:0,pc:0,req:{node:'infra-l1',pc:30},con:{trust:5,ap:0,part:0,note:'Ben respects the directness. The case lands.'}}
    ]},
   {id:'y0-q4',q:4,tut:false,title:'Nobody Knows What "Staying Close" Looks Like',char:'maya',
@@ -767,7 +689,7 @@ var SITS = [
    opts:[
     {id:'a',badge:'TALK TO EACH OF THEM',text:'Spend one-on-one time with each of them figuring out what would actually work. Not scalable, but immediate.',slots:1,bud:0,pc:0,req:null,con:{trust:1,ap:2,part:0,note:'They feel supported. Maya is grateful.'}},
     {id:'b',badge:'ASK THEM TO SIT TIGHT',text:'Tell them you\'re working on something. Ask them to hang on for now.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:-1,part:0,note:'They wait. Reliability signal turns amber. Needs to resolve next year.'}},
-    {id:'c',badge:'SET UP THE STANDING PLAN',text:'This is exactly what a standing plan is for. Set it up now at a reduced cost &#8212; the need is right in front of you.',slots:1,bud:100,pc:0,req:{noNode:'mgr-l1'},con:{trust:3,ap:3,part:0,note:'The standing plan lands immediately. Maya uses it that week.'},treeUnlock:'mgr-l1'}
+    {id:'c',badge:'SET UP THE STANDING PLAN',text:'This is exactly what a standing plan is for. Set it up now at a reduced cost &#8212; the need is right in front of you.',slots:1,bud:1,pc:0,req:{noNode:'mgr-l1'},con:{trust:3,ap:3,part:0,note:'The standing plan lands immediately. Maya uses it that week.'},treeUnlock:'mgr-l1'}
    ]}
 ];
 
@@ -799,15 +721,15 @@ var YEAR_POOLS = {
      scenario:'Theo grumbles that the group always defaults to Maya\'s favorite pricey spot, and wonders if you could just pick somewhere cheaper.',
      opts:[
       {id:'a',badge:'ACKNOWLEDGE IT',text:'Hear him out, say you\'ll think about it later.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Reasonable. Nothing changes yet.'}},
-      {id:'b',badge:'FLOAT A CHEAPER SPOT',text:'Suggest somewhere cheaper next time and see how it lands.',slots:0,bud:2000,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Theo appreciates that you actually did something about it.'}},
-      {id:'c',badge:'PROPOSE A TRADE',text:'Get Theo to drop it for good in exchange for backing you on the next big ask.',slots:0,bud:0,pc:20,req:{pc:20},con:{trust:1,ap:0,part:0,note:'The next thing you work on is guaranteed to land, regardless of Closeness zone.'},guaranteeNextRec:true}
+      {id:'b',badge:'FLOAT A CHEAPER SPOT',text:'Suggest somewhere cheaper next time and see how it lands.',slots:0,bud:20,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Theo appreciates that you actually did something about it.'}},
+      {id:'c',badge:'PROPOSE A TRADE',text:'Get Theo to drop it for good by actually hearing him out and changing the plan on the spot.',slots:0,bud:0,pc:20,req:{pc:20},con:{trust:4,ap:0,part:0,note:'Theo feels genuinely heard. The complaint doesn\'t come back.'}}
      ]},
     {id:'y1-d',shape:'resource_tradeoff',title:'The Rule Nobody Follows',char:'aisha',
      scenario:'Dana points out, half-joking, that "Say the Thing" has been the group\'s unofficial rule since forever — and also the one nobody actually follows. Aisha\'s sympathetic but leaves it to you.',
      opts:[
       {id:'a',badge:'LEAVE IT AS IS',text:'Some things work better as an aspiration than a rule. Explain why you\'re not changing anything.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:1,note:'Turnout holds steady. Dana\'s mildly annoyed the rule and reality still don\'t match.'}},
       {id:'b',badge:'BRING IT UP GENTLY',text:'Actually name the pattern at the next hangout, without singling anyone out.',slots:1,bud:0,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'A workable nudge. People half-notice, half-shrug.'}},
-      {id:'c',badge:'TRADE FOR SOMETHING BIGGER',text:'Let Dana have this one — publicly back her on it — in exchange for her support on your next big ask.',slots:0,bud:0,pc:15,req:{pc:15},con:{trust:1,ap:0,part:-2,note:'The moment loses a little of its honesty, but your next ask is guaranteed to land.'},guaranteeNextRec:true}
+      {id:'c',badge:'BACK HER PUBLICLY',text:'Let Dana have this one — publicly back her on it, in front of the group.',slots:0,bud:0,pc:15,req:{pc:15},con:{trust:3,ap:0,part:-2,note:'The moment loses a little of its honesty, but Dana feels genuinely backed.'}}
      ]},
     // DATA_INTEGRITY shape x2
     {id:'y1-e',shape:'data_integrity',title:'Aisha\'s Optimistic Update',char:'aisha',
@@ -828,7 +750,7 @@ var YEAR_POOLS = {
     {id:'y1-g',shape:'capacity_mechanic',title:'The Capacity Question',char:null,
      scenario:'You\'re stretched. There\'s a chance to pay for an event-planning service for the next two quarters — takes some pressure off, modest cost — but it means outsourcing something personal right when it matters.',
      opts:[
-      {id:'a',badge:'HIRE THE HELP',text:'Add capacity for two quarters.',slots:0,bud:1500,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Temporary capacity boost.'},contractorHire:true},
+      {id:'a',badge:'HIRE THE HELP',text:'Add capacity for two quarters.',slots:0,bud:15,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Temporary capacity boost.'},contractorHire:true},
       {id:'b',badge:'STAY LEAN',text:'Make do with current bandwidth. Save the money.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'No change, no cost.'}},
       {id:'c',badge:'WAIT FOR SOMEONE TO STEP UP',text:'Hold out for someone in the group to take real ownership instead of paying a stranger.',slots:0,bud:0,pc:0,req:{zone:'engaged'},con:{trust:1,ap:0,part:0,note:'Real, lasting capacity — but only available once the group is genuinely Close.'}}
      ]},
@@ -852,8 +774,8 @@ var YEAR_POOLS = {
      scenario:'Aisha proposes splitting next year\'s trip house with another friend group to cut costs. Noah, dialing in from across the country, pushes back: "Every time we\'ve shared something like that, it ends up being nobody\'s job to actually deal with it." Neither of them is wrong. They\'re both looking at you.',
      opts:[
       {id:'a',badge:'KEEP IT JUST US',text:'Side with Noah. Explain why keeping it just the group is worth the extra cost.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Reasonable. The trip stays yours. Noah notes you took his point seriously, even from far away.'}},
-      {id:'b',badge:'AGREE TO SPLIT IT',text:'Side with Aisha. Split the house. Costs more bandwidth, buys goodwill.',slots:0,bud:2000,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Aisha appreciates the flexibility. Noah files this away.'}},
-      {id:'c',badge:'PROPOSE A TRADE',text:'Offer to figure it out later in exchange for Aisha\'s support on your next big ask &#8212; sidestepping the disagreement entirely.',slots:0,bud:0,pc:20,req:{pc:20},con:{trust:1,ap:0,part:0,note:'Your next ask is guaranteed to land, regardless of Closeness zone.'},guaranteeNextRec:true}
+      {id:'b',badge:'AGREE TO SPLIT IT',text:'Side with Aisha. Split the house. Costs more bandwidth, buys goodwill.',slots:0,bud:20,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Aisha appreciates the flexibility. Noah files this away.'}},
+      {id:'c',badge:'SPEND THE GOODWILL TO SETTLE IT',text:'Use your standing with both of them to broker an actual compromise on the spot &#8212; sidestepping the disagreement entirely.',slots:0,bud:0,pc:20,req:{pc:20},con:{trust:4,ap:0,part:0,note:'Both Aisha and Noah feel like the decision was made fairly.'}}
      ]},
     // DATA_INTEGRITY shape x3
     {id:'y1-k',shape:'data_integrity',title:'The Thing Dana Heard',char:'dana',
@@ -892,14 +814,14 @@ var YEAR_POOLS = {
      scenario:'Ben asks, not meanly, whether the yearly trip is really worth what it costs him at this point in his life. Aisha jumps in before you can answer: "You can\'t put a price on this, Ben." He doesn\'t back down. They\'re not really arguing with each other anymore &#8212; they\'re both looking at you.',
      opts:[
       {id:'a',badge:'ACKNOWLEDGE THE GAP',text:'Admit you haven\'t actually made the case for why it\'s worth it, siding with neither of them.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Honest. Doesn\'t resolve Ben\'s doubt yet, and Aisha looks a little exposed for defending it so hard.'}},
-      {id:'b',badge:'MAKE IT WORK FOR HIM',text:'Actually rework the trip to cost less without losing what makes it matter &#8212; give Ben something concrete without contradicting Aisha.',slots:0,bud:2500,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Ben sees something concrete, even if imperfect. Aisha\'s instinct is vindicated without anyone losing face.'}},
-      {id:'c',badge:'TRADE FOR PATIENCE',text:'Ask Ben directly for one more year before deciding, in exchange for actually addressing it for real next time.',slots:0,bud:0,pc:20,req:{pc:20},con:{trust:1,ap:0,part:0,note:'Your next ask is guaranteed to land.'},guaranteeNextRec:true}
+      {id:'b',badge:'MAKE IT WORK FOR HIM',text:'Actually rework the trip to cost less without losing what makes it matter &#8212; give Ben something concrete without contradicting Aisha.',slots:0,bud:25,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Ben sees something concrete, even if imperfect. Aisha\'s instinct is vindicated without anyone losing face.'}},
+      {id:'c',badge:'MAKE THE CASE NOW',text:'Spend real effort making the full case to Ben directly, right now, instead of asking for more time.',slots:0,bud:0,pc:20,req:{pc:20},con:{trust:4,ap:0,part:0,note:'Ben is actually convinced, not just placated.'}}
      ]},
     {id:'y2-d',shape:'resource_tradeoff',title:'Every Other Year?',char:'ben',
      scenario:'Ben floats making the annual trip biennial instead, to cut cost and hassle. You have a pretty strong hunch that a full year gap would let people drift.',
      opts:[
       {id:'a',badge:'PUSH BACK WITH THE REAL REASON',text:'Tell him directly why the yearly rhythm matters more than the money.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Outcome depends on whether Ben is actually convinced.'},variance:true},
-      {id:'b',badge:'PROPOSE A HYBRID',text:'Big trip every year, plus a cheap, low-key weekend in between.',slots:0,bud:1500,pc:0,req:null,con:{trust:2,ap:0,part:1,note:'Reframes as more, not less.'}},
+      {id:'b',badge:'PROPOSE A HYBRID',text:'Big trip every year, plus a cheap, low-key weekend in between.',slots:0,bud:15,pc:0,req:null,con:{trust:2,ap:0,part:1,note:'Reframes as more, not less.'}},
       {id:'c',badge:'TRADE FOR THE WIN',text:'Use goodwill to make this a non-issue.',slots:0,bud:0,pc:20,req:{pc:20},con:{trust:3,ap:0,part:0,note:'Annual trip stays annual. Resolved cleanly.'}}
      ]},
     {id:'y2-e',shape:'data_integrity',title:'Theo\'s Shortcut',char:'theo',
@@ -943,7 +865,7 @@ var YEAR_POOLS = {
      scenario:'Ben wants to fold the annual trip into a work trip he\'s already taking, to save money and time. It would mean everyone working around his schedule instead of the other way around.',
      opts:[
       {id:'a',badge:'RESIST BUNDLING',text:'Argue the trip needs its own dedicated time.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Outcome depends on how firmly Ben pushes back.'},variance:true},
-      {id:'b',badge:'PROPOSE A MIDDLE PATH',text:'Accept partial overlap in exchange for keeping the dates flexible for everyone else.',slots:0,bud:1500,pc:0,req:null,con:{trust:2,ap:0,part:1,note:'A workable compromise.'}},
+      {id:'b',badge:'PROPOSE A MIDDLE PATH',text:'Accept partial overlap in exchange for keeping the dates flexible for everyone else.',slots:0,bud:15,pc:0,req:null,con:{trust:2,ap:0,part:1,note:'A workable compromise.'}},
       {id:'c',badge:'SPEND GOODWILL',text:'Use your standing to keep the trip on its own terms outright.',slots:0,bud:0,pc:20,req:{pc:20},con:{trust:3,ap:0,part:0,note:'Kept separate, cleanly resolved.'}}
      ]},
     // DATA_INTEGRITY shape x3
@@ -1004,7 +926,7 @@ var YEAR_POOLS = {
      scenario:'Turnout\'s been flat for two years despite all the extra effort. Someone suggests just... paying people to show up &#8212; cover their gas, Venmo them for coming. Someone else asks, half-joking, whether that squares with "Show Up However You Can."',
      opts:[
       {id:'a',badge:'DECLINE',text:'Paying people to show up isn\'t really showing up. Not worth it.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Principled. The spirit of it stays protected.'}},
-      {id:'b',badge:'TRY IT ONCE, QUIETLY',text:'Test it narrowly with the people who\'ve drifted the most.',slots:1,bud:1200,pc:0,req:null,con:{trust:0,ap:0,part:2,note:'Experimental, contained.'}},
+      {id:'b',badge:'TRY IT ONCE, QUIETLY',text:'Test it narrowly with the people who\'ve drifted the most.',slots:1,bud:12,pc:0,req:null,con:{trust:0,ap:0,part:2,note:'Experimental, contained.'}},
       {id:'c',badge:'FIX THE ROOT CAUSE',text:'Actually find out why turnout plateaued instead of paying around it.',slots:1,bud:0,pc:0,req:{node:'comms-l2'},con:{trust:3,ap:1,part:3,note:'Slower, but addresses the actual problem without cutting a corner.'}}
      ]},
     {id:'y3-g',shape:'capacity_mechanic',title:'The Standing Invite',char:null,
@@ -1017,7 +939,7 @@ var YEAR_POOLS = {
     {id:'y3-h',shape:'capacity_mechanic',title:'The Multi-Year House Deal',char:null,
      scenario:'The place you rent for the yearly trip is offering a multi-year lock-in rate. You can commit now for savings, or stay flexible year-to-year.',
      opts:[
-      {id:'a',badge:'LOCK IN MULTI-YEAR',text:'Commit money now for savings later.',slots:0,bud:3000,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Saves money long-term, costs more now.'}},
+      {id:'a',badge:'LOCK IN MULTI-YEAR',text:'Commit money now for savings later.',slots:0,bud:30,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Saves money long-term, costs more now.'}},
       {id:'b',badge:'STAY FLEXIBLE',text:'Renew year-to-year. Costs more over time but keeps options open.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'No upfront cost, less long-term savings.'}},
       {id:'c',badge:'NEGOTIATE WITH LEVERAGE',text:'Use how long you\'ve been renting from them to get a better deal.',slots:1,bud:0,pc:0,req:{node:'infra-l2'},con:{trust:1,ap:0,part:0,note:'Best of both &#8212; savings without the upfront cost.'}}
      ]},
@@ -1042,7 +964,7 @@ var YEAR_POOLS = {
      scenario:'A mutual friend cites another friend group\'s weekly hangouts as proof yours is falling short &#8212; without mentioning that group all lives in the same apartment building.',
      opts:[
       {id:'a',badge:'LET IT GO UNCHALLENGED',text:'Responding might just prolong the comparison.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Avoids conflict, leaves the comparison to stand.'}},
-      {id:'b',badge:'QUIETLY CORRECT THE RECORD',text:'Mention the actual difference, once, without making a thing of it.',slots:1,bud:1200,pc:0,req:null,con:{trust:0,ap:0,part:2,note:'A quiet correction, gently made.'}},
+      {id:'b',badge:'QUIETLY CORRECT THE RECORD',text:'Mention the actual difference, once, without making a thing of it.',slots:1,bud:12,pc:0,req:null,con:{trust:0,ap:0,part:2,note:'A quiet correction, gently made.'}},
       {id:'c',badge:'MAKE THE REAL CASE',text:'Show exactly why staying close across real distance is the harder, more honest thing.',slots:1,bud:0,pc:0,req:{node:'comms-l2'},con:{trust:3,ap:1,part:3,note:'Shows exactly why staying close across distance is the harder, more honest thing.'}}
      ]},
     // CAPACITY_MECHANIC shape x3
@@ -1081,7 +1003,7 @@ var YEAR_POOLS = {
      scenario:'Ben asks you to prove that the standing plan is actually why things feel closer lately, and not just a good year. He wants a real reason, not just a feeling.',
      opts:[
       {id:'a',badge:'ACKNOWLEDGE THE LIMITATION',text:'Be honest that you can\'t really prove it, and that\'s okay.',slots:0,bud:0,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Credible honesty.'}},
-      {id:'b',badge:'TALK IT THROUGH WITH HIM',text:'Actually sit down and walk him through it properly.',slots:1,bud:3000,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Buys real credibility with him.'}},
+      {id:'b',badge:'TALK IT THROUGH WITH HIM',text:'Actually sit down and walk him through it properly.',slots:1,bud:30,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Buys real credibility with him.'}},
       {id:'c',badge:'SHOW HIM THE PATTERN',text:'Point to exactly who got closer, and when, and why.',slots:1,bud:0,pc:0,req:{node:'mgr-l3'},con:{trust:4,ap:1,part:0,note:'If convincing, this resolves the question for good.'}}
      ]},
     {id:'y4-e',shape:'data_integrity',title:'The Pattern Someone Noticed',char:null,
@@ -1095,14 +1017,14 @@ var YEAR_POOLS = {
      scenario:'Ben compares how much your group spends keeping close to a much lower-key friend group he\'s seen. He\'s not being hostile, just curious.',
      opts:[
       {id:'a',badge:'EXPLAIN WHAT\'S DIFFERENT',text:'Walk through what the lower-key version wouldn\'t actually give you.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Reasonable, but comparative claims are hard to fully resolve.'},variance:true},
-      {id:'b',badge:'OFFER A REAL LOOK',text:'Actually compare notes for a season.',slots:1,bud:1000,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Fair test, takes time.'}},
+      {id:'b',badge:'OFFER A REAL LOOK',text:'Actually compare notes for a season.',slots:1,bud:10,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Fair test, takes time.'}},
       {id:'c',badge:'SHOW FIVE YEARS OF IT',text:'Show him the whole arc the low-key version could never have built.',slots:2,bud:0,pc:0,req:{node:'infra-l4'},con:{trust:6,ap:1,part:0,note:'The comparison becomes obviously unfair, in your favor.'}}
      ]},
     {id:'y4-g',shape:'capacity_mechanic',title:'The Last Big Investment',char:null,
      scenario:'You have room for one more real investment before the final year. The question is whether to go deeper on planning tools, or free up your own time by handing logistics to someone else.',
      opts:[
-      {id:'a',badge:'GO DEEPER ON TOOLS',text:'Invest in better planning tools. Stronger systems heading into Year 5.',slots:1,bud:8000,pc:0,req:{zone:'engaged'},con:{trust:0,ap:1,part:0,note:'Strengthens your systems for Year 5.'}},
-      {id:'b',badge:'HAND OFF LOGISTICS',text:'Get someone else to run point and free up your own time.',slots:1,bud:8000,pc:0,req:{zone:'engaged'},con:{trust:1,ap:0,part:0,note:'More direct support heading into the final year.'}},
+      {id:'a',badge:'GO DEEPER ON TOOLS',text:'Invest in better planning tools. Stronger systems heading into Year 5.',slots:1,bud:80,pc:0,req:{zone:'engaged'},con:{trust:0,ap:1,part:0,note:'Strengthens your systems for Year 5.'}},
+      {id:'b',badge:'HAND OFF LOGISTICS',text:'Get someone else to run point and free up your own time.',slots:1,bud:80,pc:0,req:{zone:'engaged'},con:{trust:1,ap:0,part:0,note:'More direct support heading into the final year.'}},
       {id:'c',badge:'HOLD OFF',text:'Decline for now. Keep things flexible for the final year.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'No cost, no new commitment. Bandwidth stays flexible.'}}
      ]},
     {id:'y4-h',shape:'capacity_mechanic',title:'What Happens If You Step Back?',char:'aisha',
@@ -1125,7 +1047,7 @@ var YEAR_POOLS = {
      scenario:'Aisha asks whether the effort you\'ve put in actually caused people to grow closer, or whether everyone\'s just having a good stretch of life right now, coincidentally.',
      opts:[
       {id:'a',badge:'ACKNOWLEDGE THE LIMITATION',text:'Be honest that you can\'t fully separate the two.',slots:0,bud:0,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Honest, if unsatisfying.'}},
-      {id:'b',badge:'TALK IT THROUGH',text:'Actually walk through it with her.',slots:1,bud:3000,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Buys real credibility with her.'}},
+      {id:'b',badge:'TALK IT THROUGH',text:'Actually walk through it with her.',slots:1,bud:30,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Buys real credibility with her.'}},
       {id:'c',badge:'SHOW HER THE PATTERN',text:'Point to specific people, specific moments, specific effort.',slots:1,bud:0,pc:0,req:{node:'mgr-l3'},con:{trust:4,ap:1,part:0,note:'A real pattern makes the case convincingly.'}}
      ]},
     // DATA_INTEGRITY shape x3
@@ -1140,8 +1062,8 @@ var YEAR_POOLS = {
     {id:'y4-l',shape:'capacity_mechanic',title:'The Favor With Strings',char:null,
      scenario:'A friend-of-a-friend who plans events for a living offers to help with next year\'s big trip at a steep discount &#8212; in exchange for posting about it for her business afterward.',
      opts:[
-      {id:'a',badge:'ACCEPT AND LET HER POST',text:'Take the discount, let her use it for her business.',slots:1,bud:8000,pc:0,req:{zone:'engaged'},con:{trust:0,ap:1,part:0,note:'Great help, but the trip becomes semi-public content.'}},
-      {id:'b',badge:'ACCEPT, KEEP IT PRIVATE',text:'Pay full rate to keep it just yours.',slots:1,bud:8000,pc:0,req:{zone:'engaged'},con:{trust:1,ap:0,part:0,note:'Same quality help, no public exposure.'}},
+      {id:'a',badge:'ACCEPT AND LET HER POST',text:'Take the discount, let her use it for her business.',slots:1,bud:80,pc:0,req:{zone:'engaged'},con:{trust:0,ap:1,part:0,note:'Great help, but the trip becomes semi-public content.'}},
+      {id:'b',badge:'ACCEPT, KEEP IT PRIVATE',text:'Pay full rate to keep it just yours.',slots:1,bud:80,pc:0,req:{zone:'engaged'},con:{trust:1,ap:0,part:0,note:'Same quality help, no public exposure.'}},
       {id:'c',badge:'DECLINE',text:'Keep it in-house and save the money.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Keep it in-house, save the money.'}}
      ]}
   ],
@@ -1266,8 +1188,8 @@ var YEAR_PRESURVEY = {
    ]},
   4: {prompt:'Turnout has been flat. A scheduling app offers automatic reminders before every plan.',
    opts:[
-    {id:'a',badge:'USE IT EVERYWHERE',text:'Automatic reminders are proven to lift turnout.',req:null,effect:{part:6,trust:1,note:'Bandwidth -$1,200. Reliable lift, and it shows people you actually act on flat turnout instead of ignoring it.'},bud:1200},
-    {id:'b',badge:'TARGET WHOEVER\'S DRIFTED MOST',text:'Use it only for the people who\'ve been showing up least.',req:null,effect:{part:4,note:'Bandwidth -$400. Focused impact.'},bud:400},
+    {id:'a',badge:'USE IT EVERYWHERE',text:'Automatic reminders are proven to lift turnout.',req:null,effect:{part:6,trust:1,note:'Bandwidth -$12. Reliable lift, and it shows people you actually act on flat turnout instead of ignoring it.'},bud:12},
+    {id:'b',badge:'TARGET WHOEVER\'S DRIFTED MOST',text:'Use it only for the people who\'ve been showing up least.',req:null,effect:{part:4,note:'Bandwidth -$4. Focused impact.'},bud:4},
     {id:'c',badge:'DECLINE',text:'Showing up should come from wanting to, not reminders.',req:null,effect:{part:0,note:'Principled. No bonus.'}}
    ]},
   5: {prompt:'The final year. One message before everyone gathers, to people who\'ve been through four years of this already.',
@@ -1319,13 +1241,7 @@ var S = {
   trustAtYearStart:0,
   apAtYearStart:0,partAtYearStart:0,engAtYearStart:0,
   decisionLog:[], // [{year,q,title,badge,note}] full game history for closing summary
-  charArcs:{marcus:0,delia:0,raj:0,yolanda:0,priya:0,desmond:0,warren:0}, // arc stage per character 0-3
-  pendingRecs:[], // [{dim,year,signal,probMod,guaranteed}] recs issued this year, resolved next postsurvey
-  guaranteedRec:false, // set by guaranteeNextRec decisions; consumed by the next issueRec call
-  recSkippedNote:'',
-  recResults:[], // [{dim,landed,year}] resolved rec results for narrative
-  recsIssued:0,  // how many recs issued this postsurvey review (max 2)
-  recFallout:[], // [{dim,signal,queuedQ}] deprioritized high/medium recs, delivered as a one-time quarter event next year
+  charArcs:{theo:0,aisha:0,ben:0,maya:0,sam:0,noah:0,dana:0}, // arc stage per character 0-3
   guaranteedAnchorId:null, // one id from EXEC_DISAGREEMENT_IDS, chosen per game — see drawYearSituations
   soundOn:true,
   yearHistory:[], // [{year,ap,part,eng,grade}] snapshot at each year end
@@ -1355,7 +1271,6 @@ var S = {
     this.decisionLog=[];
     this.charArcs={theo:0,aisha:0,ben:0,maya:0,sam:0,noah:0,dana:0};
     this.yearHistory=[];this.showTrending=false;this.treeDetailsOpen={};this.mobPanelOpen=false;this.peopleDetailsOpen={};
-    this.pendingRecs=[];this.recResults=[];this.recsIssued=0;this.guaranteedRec=false;this.recFallout=[];
     this.guaranteedAnchorId=EXEC_DISAGREEMENT_IDS[Math.floor(Math.random()*EXEC_DISAGREEMENT_IDS.length)];
     this.soundOn=true;
     this.ambEv=null; this.pulse=null; this.pulseV=null;
@@ -1457,11 +1372,6 @@ var S = {
     // PC GAIN: some options grant Political Capital instead of spending it
     if(opt.pcGain){
       this.polcap=Math.min(100,this.polcap+opt.pcGain);
-    }
-
-    // GUARANTEE NEXT REC: consumed by the next recommendation issued at postsurvey
-    if(opt.guaranteeNextRec){
-      this.guaranteedRec=true;
     }
 
     // CONTRACTOR HIRE: temp capacity boost for 2 quarters
@@ -1646,20 +1556,6 @@ var S = {
 
   genAmbient:function(){
     var z=this.getZone();
-    // A deprioritized recommendation that carried a real signal surfaces here once, in
-    // whichever quarter it was queued for — takes priority over the regular ambient roll.
-    for(var fi=0;fi<this.recFallout.length;fi++){
-      if(this.recFallout[fi].queuedQ!==this.q)continue;
-      var fallout=this.recFallout.splice(fi,1)[0];
-      var fd=REC_FALLOUT_TEXT[fallout.dim];
-      var falloutDim=null;
-      for(var dj=0;dj<REC_DIMENSIONS.length;dj++){if(REC_DIMENSIONS[dj].id===fallout.dim){falloutDim=REC_DIMENSIONS[dj];break;}}
-      var causeText=falloutDim?'The '+falloutDim.label+' recommendation was deprioritized last year despite the signal. ':'';
-      this.ambEv=null;
-      this.qCons.push({trust:-1,ap:fd.ap||0,part:fd.part||0,pc:0,note:causeText+fd.text,badge:'DEPRIORITIZED REC',source:'ambient',char:null});
-      this.polcap=Math.min(100,this.polcap+z.rate);
-      return;
-    }
     var pw=z.id==='champion'?.65:z.id==='engaged'?.55:z.id==='building'?.50:z.id==='cautious'?.45:.20;
     var arcEvents=this.getCharAmbientEvents();
     var posPool=POS_EVENTS.concat(arcEvents.filter(function(e){return e.isPos;}));
@@ -1771,7 +1667,7 @@ var R = {
       html+='<div class="diff-stats">';
       html+='<div><div class="dstat-v">'+d.eng+'</div><div class="dstat-l">Vibe</div></div>';
       html+='<div><div class="dstat-v">'+d.part+'%</div><div class="dstat-l">Turnout</div></div>';
-      html+='<div><div class="dstat-v amber">$'+Math.floor(d.budget/1000)+'K</div><div class="dstat-l">Bandwidth</div></div>';
+      html+='<div><div class="dstat-v amber">$'+d.budget+'</div><div class="dstat-l">Bandwidth</div></div>';
       html+='<div><div class="dstat-v">'+d.cap+'</div><div class="dstat-l">Free Time</div></div>';
       html+='</div><div class="diff-voice">"'+d.voice+'"</div>';
       html+='<button class="btn-p">Begin &#8594;</button></div>';
@@ -1792,16 +1688,16 @@ var R = {
     html+='<h2 class="ob-title">Before the first check-in</h2>';
     html+='<p class="ob-body">You\'re figuring out where everyone actually stands, and they\'re figuring out whether you\'re still the one holding this together. Here is what you are really managing.</p>';
     html+='<div class="ob-trust ob-trust-hero">';
-    html+='<div class="ob-trust-hdr"><div class="ob-trust-nm">CLOSENESS &#8212; where the group stands</div><div class="ob-trust-zn" style="color:'+z.color+'">'+z.label+'</div></div>';
+    html+='<div class="ob-trust-hdr"><div class="ob-trust-nm">CLOSENESS &#8212; where you stand with them</div><div class="ob-trust-zn" style="color:'+z.color+'">'+z.label+'</div></div>';
     html+='<div class="ob-bar"><div class="ob-bar-fill" style="width:'+S.trust+'%;background:'+ZONE_FLUID[z.id]+'"></div></div>';
-    html+='<div class="ob-zones"><span class="ob-zl">Distant</span><span class="ob-zl">Cordial</span><span class="ob-zl">Comfortable</span><span class="ob-zl">Close</span><span class="ob-zl">Ride-or-Die</span></div>';
-    html+='<div class="ob-trust-desc">Closeness is how much standing you have with the group. It determines which options are available, whether the things you work on actually land, and how much bandwidth you get next year. Cannot be spent &#8212; only built or lost.<br><br><strong style="color:var(--t2)">Goodwill (&#10024;'+S.polcap+')</strong> is spendable. Use it for high-leverage decisions and to ask people to work on things. Saving it for the right moment matters more than spending it fast. <em>'+z.label+'</em> earns +'+z.rate+' Goodwill per quarter; good years add more at year end.<br><br><strong style="color:var(--t2)">Navigation:</strong> Bandwidth, Free Time, and Goodwill are always visible in the strip below the Closeness bar. Current scores appear below that on mobile. The left panel (Dashboard) shows scores, last check-in results, your investment tree, and the people whose arcs respond to your decisions.</div>';
+    html+='<div class="ob-zones"><span class="ob-zl">Acquaintance</span><span class="ob-zl">Friend</span><span class="ob-zl">Close Friend</span><span class="ob-zl">Confidant</span><span class="ob-zl">Group Leader</span></div>';
+    html+='<div class="ob-trust-desc">Closeness is your own standing with the group &#8212; not a group-wide average, but how much they see you as one of them. It determines which options are available and how much bandwidth you get next year. Cannot be spent &#8212; only built or lost.<br><br><strong style="color:var(--t2)">Goodwill (&#10024;'+S.polcap+')</strong> is spendable. Use it for high-leverage decisions. Saving it for the right moment matters more than spending it fast. <em>'+z.label+'</em> earns +'+z.rate+' Goodwill per quarter; good years add more at year end.<br><br><strong style="color:var(--t2)">Navigation:</strong> Bandwidth, Free Time, and Goodwill are always visible in the strip below the Closeness bar. Current scores appear below that on mobile. The left panel (Dashboard) shows scores, last check-in results, your investment tree, and the people whose arcs respond to your decisions.</div>';
     html+='</div>';
     html+='<div class="ob-metrics">';
     html+='<div class="ob-metric"><div class="ob-mv amber">'+S.ap+'</div><div class="ob-mn">Reliability</div><div class="ob-md">Your north star. Do people believe you\'ll actually follow through?</div></div>';
     html+='<div class="ob-metric"><div class="ob-mv blue">'+S.part+'%</div><div class="ob-mn">Turnout</div><div class="ob-md">The prerequisite. Below 65% shows are thin; below 50% plans start dying on their own.</div></div>';
     html+='<div class="ob-metric"><div class="ob-mv">'+S.eng+'</div><div class="ob-mn">Vibe</div><div class="ob-md">Summary metric. Moves gradually as Reliability and Turnout improve.</div></div>';
-    html+='<div class="ob-metric"><div class="ob-mv amber">$'+S.budget/1000+'K</div><div class="ob-mn">Bandwidth</div><div class="ob-md">Time and money you have to give the group this year. Grows in good years, shrinks in rough ones.</div></div>';
+    html+='<div class="ob-metric"><div class="ob-mv amber">$'+S.budget+'</div><div class="ob-mn">Bandwidth</div><div class="ob-md">Time and money you have to give the group this year. Grows in good years, shrinks in rough ones.</div></div>';
     html+='<div class="ob-metric"><div class="ob-mv blue">'+S.cap+'</div><div class="ob-mn">Free Time</div><div class="ob-md">What you can actually prioritize this stretch. Each decision or tree investment costs one. Grown Apart has less &#8212; every choice matters.</div></div>';
     html+='</div>';
     if(includeActions)html+='<div class="ob-actions"><button class="btn-p" onclick="C.skipY0()">Start Year 1 &#8594;</button><button class="btn-g" onclick="C.startY0()">Run tutorial first</button></div>';
@@ -1830,10 +1726,10 @@ var R = {
     html+='<div class="trust-wrap">';
     html+='<div class="trust-hdr"><div class="trust-left"><span class="trust-title">Closeness</span><span class="trust-zone" style="color:'+z.color+'">'+z.label+'</span></div></div>';
     html+='<div class="trust-track"><div class="trust-fill" style="width:'+S.trust+'%;background:'+ZONE_FLUID[z.id]+'"></div></div>';
-    html+='<div class="trust-zmarks"><span class="trust-zm">Distant</span><span class="trust-zm">Cordial</span><span class="trust-zm">Comfortable</span><span class="trust-zm">Close</span><span class="trust-zm">Ride-or-Die</span></div>';
+    html+='<div class="trust-zmarks"><span class="trust-zm">Acquaintance</span><span class="trust-zm">Friend</span><span class="trust-zm">Close Friend</span><span class="trust-zm">Confidant</span><span class="trust-zm">Group Leader</span></div>';
     html+='</div>';
     // Unified resource strip — always visible, shows live pending cost
-    var budDisplay='$'+Math.floor(S.budget/1000)+'K'+(pendingBud>0?' <span style="color:var(--red);font-size:10px">(-$'+Math.floor(pendingBud/1000)+'K pending)</span>':'');
+    var budDisplay='$'+S.budget+(pendingBud>0?' <span style="color:var(--red);font-size:10px">(-$'+pendingBud+' pending)</span>':'');
     html+='<div class="res-strip">';
     html+='<div class="res-strip-item"><span class="res-strip-lbl">BANDWIDTH</span><span class="res-strip-val amber">'+budDisplay+'</span></div>';
     html+='<div class="res-strip-item"><span class="res-strip-lbl">FREE TIME</span><span class="res-strip-val">'+capDots+'</span></div>';
@@ -2337,103 +2233,17 @@ var R = {
     html+='<div>';
     html+='<div style="font-size:12px;font-weight:600">Next year bandwidth</div>';
     html+='<div style="font-size:10px;color:var(--tm);margin-top:3px;line-height:1.6">';
-    html+='$'+Math.floor((BASE_BUDGETS[S.diff]||40000)/1000)+'K base';
-    if(carryAmt>0)html+='<br>+$'+Math.floor(carryAmt/1000)+'K carry (10% of $'+Math.floor(S.budget/1000)+'K unspent)';
-    if(gradeDeltaDisp!==0)html+='<br>'+(gradeDeltaDisp>0?'+':'')+Math.floor(gradeDeltaDisp/1000)+'K grade '+g;
+    html+='$'+(BASE_BUDGETS[S.diff]||400)+' base';
+    if(carryAmt>0)html+='<br>+$'+carryAmt+' carry (10% of $'+S.budget+' unspent)';
+    if(gradeDeltaDisp!==0)html+='<br>'+(gradeDeltaDisp>0?'+':'')+gradeDeltaDisp+' grade '+g;
     html+='</div></div>';
-    html+='<div style="font-family:var(--mono);font-size:20px;font-weight:700;color:var(--amber)">$'+Math.floor(nb/1000)+'K</div>';
+    html+='<div style="font-family:var(--mono);font-size:20px;font-weight:700;color:var(--amber)">$'+nb+'</div>';
     html+='</div>';
     html+='</div>';
     html+='<div style="border:1px solid var(--borderl);border-radius:var(--r);padding:16px;background:color-mix(in srgb, var(--amber) 3%, transparent)">';
     html+='<div style="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--amber);text-transform:uppercase;margin-bottom:8px">Where to Focus</div>';
     html+='<div style="font-size:13px;color:var(--t2);line-height:1.7">'+focus+'</div>';
     html+='</div>';
-
-    // Rec results from last year
-    if(S.recResults&&S.recResults.length){
-      html+='<div style="background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:16px">';
-      html+='<div style="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--tm);text-transform:uppercase;margin-bottom:10px">Things to Work On &#8212; Results</div>';
-      S.recResults.forEach(function(r){
-        var dim=null;
-        for(var di=0;di<REC_DIMENSIONS.length;di++){if(REC_DIMENSIONS[di].id===r.dim){dim=REC_DIMENSIONS[di];break;}}
-        if(!dim)return;
-        var msg,msgColor;
-        if(r.landed&&r.trustDip){
-          msg=dim.owner+' acted on it, but the signal was weak &#8212; nothing measurable moved. Trust -1.';
-          msgColor='var(--red)';
-        } else if(r.landed){
-          msg=dim.owner+' acted on it. '+r.scoreLabel+' +'+r.scoreDelta+', Trust +'+r.trustGain+', PC +'+r.pcGain+'.';
-          msgColor='var(--green)';
-        } else if(r.deferredFallout){
-          msg='Deprioritized. This was a real signal in the data &#8212; expect the organization to notice.';
-          msgColor='var(--amber)';
-        } else {
-          msg='Deprioritized. The signal was weak, so little was lost by waiting.';
-          msgColor='var(--tm)';
-        }
-        html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
-        html+='<span style="font-size:16px">'+(r.landed?'✅':'❌')+'</span>';
-        html+='<div><div style="font-size:12px;font-weight:600;color:var(--t2)">'+dim.label+'</div>';
-        html+='<div style="font-size:11px;color:'+msgColor+'">'+msg+'</div></div>';
-        html+='</div>';
-      });
-      html+='</div>';
-    }
-
-    // Recommendations UI — tiered costs, diagnostic signals, skip option
-    if(S.year<5){
-      html+='<div style="background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:16px">';
-      html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
-      html+='<div style="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--amber);text-transform:uppercase">Things to Work On &#8212; '+S.recsIssued+'/2 issued</div>';
-      html+='<div style="font-size:11px;color:var(--tm)">&#10024; '+S.polcap+' Goodwill available</div>';
-      html+='</div>';
-      html+='<div style="font-size:11px;color:var(--tm);margin-bottom:4px">Put real effort behind what the check-in showed. Each one costs Goodwill based on how clearly the signal supports it. Landing probability at <span style="color:'+z.color+'">'+z.label+'</span>: <strong>'+Math.round((REC_LAND_PROB[z.id]||0.45)*100)+'%</strong> base.</div>';
-      html+='<div style="font-size:10px;color:var(--tm);margin-bottom:12px">Goodwill is also used for high-leverage moment options. Save it if the signal here is weak.</div>';
-      if(S.recSkippedNote){
-        html+='<div style="font-size:11px;color:var(--tm);padding:8px;background:var(--card);border-radius:var(--rs);margin-bottom:8px">'+S.recSkippedNote+'</div>';
-      }
-      if(S.guaranteedRec){
-        html+='<div style="font-size:11px;color:var(--purple);padding:8px;background:color-mix(in srgb, var(--purple) 8%, transparent);border:1px solid color-mix(in srgb, var(--purple) 25%, transparent);border-radius:var(--rs);margin-bottom:8px">&#10024; A past trade guarantees the next thing you work on lands, regardless of Closeness zone.</div>';
-      }
-      if(S.recsIssued>=2){
-        html+='<div style="font-size:11px;color:var(--green)">&#10003; Both recommendation slots issued.</div>';
-      } else {
-        // Show dimension cards with diagnostic signal
-        html+='<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">';
-        REC_DIMENSIONS.forEach(function(dim){
-          var issuedRec=S.pendingRecs.filter(function(r){return r.dim===dim.id;})[0];
-          var alreadyIssued=!!issuedRec;
-          var signal=getRecDiagnostic(dim.id,S.ap,S.part,S.year,S.tree);
-          var tier=REC_TIERS[signal];
-          var sigColors={high:'var(--green)',medium:'var(--amber)',low:'var(--tm)'};
-          var sigIcons={high:'&#9650;',medium:'&#9644;',low:'&#9660;'};
-          var canAfford=S.polcap>=tier.cost;
-          html+='<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--card);border:1px solid '+(alreadyIssued?'var(--green)':canAfford?'var(--border)':'rgba(255,255,255,.05)')+';border-radius:var(--rs);opacity:'+(alreadyIssued||canAfford?1:0.5)+'">';
-          html+='<div style="flex:1">';
-          html+='<div style="font-size:12px;font-weight:600;color:var(--t2)">'+dim.label+'</div>';
-          html+='<div style="font-size:10px;color:var(--tm);margin-top:1px">'+dim.owner+'</div>';
-          html+='<div style="font-size:10px;color:'+sigColors[signal]+';margin-top:2px">'+sigIcons[signal]+' '+tier.label+' &#183; '+tier.desc+'</div>';
-          html+='<div style="font-size:10px;color:var(--tm);margin-top:3px">If it lands: <strong style="color:var(--t2)">'+SCORE_LABELS[dim.score]+' +'+dim.delta+'</strong>'+(signal==='low'?', but a weak signal risks a Trust dip instead.':'.')+' If deprioritized'+(signal==='low'?', nothing is lost.':', expect the org to notice next year.')+'</div>';
-          html+='</div>';
-          html+='<div style="text-align:right;flex-shrink:0">';
-          if(alreadyIssued){
-            html+='<div style="display:flex;align-items:center;gap:6px;justify-content:flex-end">';
-            html+='<span style="font-size:11px;color:var(--green)">&#10003; Issued'+(issuedRec.guaranteed?' &#183; Guaranteed':'')+'</span>';
-            html+='<button data-dim="'+dim.id+'" onclick="C.unissueRec(this.getAttribute(\'data-dim\'))" title="Deselect and refund Goodwill" style="background:none;border:1px solid var(--border);border-radius:var(--rs);color:var(--tm);font-size:11px;padding:2px 6px;cursor:pointer;font-family:var(--sans)">&#10005;</button>';
-            html+='</div>';
-          } else {
-            html+='<button data-dim="'+dim.id+'" onclick="C.issueRec(this.getAttribute(\'data-dim\'))" '+(canAfford?'':'disabled')+' style="background:'+(canAfford?'var(--panel)':'transparent')+';border:1px solid '+(canAfford?'var(--border)':'rgba(255,255,255,.1)')+';border-radius:var(--rs);padding:4px 10px;font-size:11px;color:'+(canAfford?'var(--t2)':'var(--tm)')+';cursor:'+(canAfford?'pointer':'default')+';font-family:var(--sans)">'+tier.cost+' Goodwill</button>';
-          }
-          html+='</div>';
-          html+='</div>';
-        });
-        html+='</div>';
-        if(S.recsIssued===0&&!S.recSkippedNote){
-          html+='<button onclick="C.skipRecs()" style="background:transparent;border:1px solid var(--border);border-radius:var(--rs);padding:5px 14px;font-size:11px;color:var(--tm);cursor:pointer;font-family:var(--sans)">Skip recommendations this year</button>';
-        }
-      }
-      html+='</div>';
-    }
 
     if(S.year>=5){
       html+='<button class="btn-p" onclick="C.goToClosing()">See Five-Year Summary &#8594;</button>';
@@ -2530,11 +2340,11 @@ var R = {
     else retro.push('Reliability did not meaningfully improve. People still do not fully count on you to follow through.');
     if(partGain>5)retro.push('Turnout grew by '+partGain+'% &#8212;'+(commsBuilt>=2?' your Staying in Touch investments made people feel like showing up was worth it.':' stronger Staying in Touch investment would have compounded this further.'));
     else if(partGain<0)retro.push('Turnout declined. People lost confidence that showing up was worth it.');
-    if(z.id==='champion')retro.push('Closeness reached Ride-or-Die. The group actively showed up for you by the end.');
-    else if(z.id==='engaged')retro.push('Closeness reached Close. The group was there for you &#8212; Ride-or-Die was achievable with a few stronger decisions.');
-    else if(z.id==='building')retro.push('Closeness reached Comfortable. The group found real footing, even if it never fully became reciprocal.');
-    else if(z.id==='cautious')retro.push('Closeness stayed Cordial. The group survived but never fully closed the distance.');
-    else retro.push('Closeness remained Distant. The group was always one quiet season away from drifting apart for good.');
+    if(z.id==='champion')retro.push('You became Group Leader. People look to you, by the end, as the reason this all still happens.');
+    else if(z.id==='engaged')retro.push('You became a real Confidant &#8212; people lean on you, even if Group Leader was still a reach with a few stronger decisions.');
+    else if(z.id==='building')retro.push('You became a Close Friend to the group. Real footing, even if it never fully became reciprocal.');
+    else if(z.id==='cautious')retro.push('You stayed a Friend, not much more. The connection survived but never deepened.');
+    else retro.push('You stayed an Acquaintance to your own friend group. Always one quiet season away from drifting out of it entirely.');
     if(mgrBuilt>=3&&apGain>8)retro.push('The Follow-Through and Reliability combination proved to be your strongest compounding investment.');
     if(commsBuilt>=3&&partGain>5)retro.push('Staying in Touch investment translated directly into turnout gains &#8212; people felt looped in even when they missed a stretch.');
     html+='<div style="background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:16px">';
@@ -2542,25 +2352,6 @@ var R = {
     retro.forEach(function(r){html+='<p style="font-size:12px;color:var(--t2);line-height:1.65;margin-bottom:8px">'+r+'</p>';});
     html+='</div>';
 
-    // ── Recommendations recap
-    var allRecs=S.recResults||[];
-    if(allRecs.length){
-      html+='<div style="background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:16px">';
-      html+='<div style="font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--amber);text-transform:uppercase;margin-bottom:10px">Things to Work On</div>';
-      allRecs.forEach(function(r){
-        var dim=null;
-        for(var di=0;di<REC_DIMENSIONS.length;di++){if(REC_DIMENSIONS[di].id===r.dim){dim=REC_DIMENSIONS[di];break;}}
-        if(!dim)return;
-        var sigLabel=r.signal?({'high':'High Impact','medium':'Moderate','low':'Low Signal'}[r.signal]||r.signal):'';
-        html+='<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">';
-        html+='<span style="font-size:14px;flex-shrink:0">'+(r.landed?'&#10003;':'&#10007;')+'</span>';
-        html+='<div>';
-        html+='<div style="font-size:12px;font-weight:600;color:var(--t2)">Y'+r.year+' &#8212; '+dim.label+(sigLabel?' <span style="color:var(--tm);font-weight:400">('+sigLabel+')</span>':'')+'</div>';
-        html+='<div style="font-size:11px;color:var(--tm);margin-top:1px">'+(r.landed?(r.trustDip?'Landed but nobody really noticed a change. Small trust dip followed.':'Landed &#8212; '+dim.owner+' acted on it.'):'Deprioritized. The timing was not right.')+'</div>';
-        html+='</div></div>';
-      });
-      html+='</div>';
-    }
 
     // Per-leader movement: stage 0 (where everyone starts) vs where they ended.
     if(hist.length>1){
@@ -2743,7 +2534,7 @@ var C = {
     R.go();
   },
 
-  skipY0:function(){S.year=0;S.nextBudget=BASE_BUDGETS[S.diff]||40000;C.beginNextYear();},
+  skipY0:function(){S.year=0;S.nextBudget=BASE_BUDGETS[S.diff]||400;C.beginNextYear();},
 
   choose:function(sitId,optId){
     AUDIO.init();
@@ -2830,48 +2621,7 @@ var C = {
     var trustShift={S:10,A:7,B:4,C:1,D:-2,F:-5};
     var shift=trustShift[g]||0;
     S.applyCappedTrust(shift);
-    // Resolve pending recommendations from last year
-    var zone=S.getZone().id;
-    var landProb=REC_LAND_PROB[zone]||0.45;
-    S.recResults=[];
-    for(var ri=0;ri<S.pendingRecs.length;ri++){
-      var rec=S.pendingRecs[ri];
-      var probMod=rec.probMod||1.0;
-      var landed=rec.guaranteed||Math.random()<(landProb*probMod);
-      var signal=rec.signal||'medium';
-      var result={dim:rec.dim,landed:landed,year:rec.year,signal:signal};
-      S.recResults.push(result);
-      for(var di=0;di<REC_DIMENSIONS.length;di++){
-        if(REC_DIMENSIONS[di].id!==rec.dim)continue;
-        var d=REC_DIMENSIONS[di];
-        if(landed){
-          if(signal==='low'){
-            // Low-signal rec: lands superficially but no real score movement, small trust dip next quarter
-            S.adjTrust(-1);
-            result.trustDip=true;
-          } else {
-            if(d.score==='ap')S.ap=Math.min(100,S.ap+d.delta);
-            else if(d.score==='part')S.part=Math.min(100,S.part+d.delta);
-            else if(d.score==='eng')S.eng=Math.min(100,S.eng+d.delta);
-            S.applyCappedTrust(2);
-            S.polcap=Math.min(100,S.polcap+3);
-            result.scoreLabel=SCORE_LABELS[d.score];
-            result.scoreDelta=d.delta;
-            result.trustGain=2;
-            result.pcGain=3;
-          }
-        } else if(signal==='high'||signal==='medium'){
-          // A real, data-supported problem got deprioritized. The organization feels this
-          // later — queued as a one-time ambient event next year (see S.genAmbient).
-          S.recFallout.push({dim:rec.dim,signal:signal,queuedQ:Math.floor(Math.random()*4)+1});
-          result.deferredFallout=true;
-        }
-        break;
-      }
-    }
     S.yearHistory.push({year:S.year,ap:S.ap,part:S.part,eng:S.eng,grade:g,trust:S.trust});
-    S.pendingRecs=[];
-    S.recsIssued=0;
     S.phase='postsurvey';R.go();
     setTimeout(function(){AUDIO.gradeReveal(g);},300);
   },
@@ -2887,7 +2637,7 @@ var C = {
     S.budget=S.nextBudget||d.budget;
     S.capUsed=0;S.sel={};S.qCons=[];S.qTree=[];
     S.ambEv=null;S.pulse=null;S.pulseV=null;
-    S.trustAtQStart=S.trust;S.trustAtYearStart=S.trust;S.grade=null;S.preSurveyNote='';S.recSkippedNote='';
+    S.trustAtQStart=S.trust;S.trustAtYearStart=S.trust;S.grade=null;S.preSurveyNote='';
     S.apAtYearStart=S.ap;S.partAtYearStart=S.part;S.engAtYearStart=S.eng;
     S.yearTrustGained=0;
     S.drawYearSituations(1);
@@ -2903,7 +2653,7 @@ var C = {
     S.budget=S.nextBudget;
     S.capUsed=0;S.sel={};S.qCons=[];S.qTree=[];
     S.ambEv=null;S.pulse=null;S.pulseV=null;
-    S.trustAtQStart=S.trust;S.trustAtYearStart=S.trust;S.grade=null;S.preSurveyNote='';S.recSkippedNote='';
+    S.trustAtQStart=S.trust;S.trustAtYearStart=S.trust;S.grade=null;S.preSurveyNote='';
     S.apAtYearStart=S.ap;S.partAtYearStart=S.part;S.engAtYearStart=S.eng;
     S.yearTrustGained=0;
     S.drawYearSituations(S.year);
@@ -2914,38 +2664,6 @@ var C = {
 
   goY1:function(){C.goPostSurvey();},
   goToClosing:function(){S.phase='closing';R.go();},
-  issueRec:function(dimId){
-    if(S.recsIssued>=2)return;
-    for(var i=0;i<S.pendingRecs.length;i++){if(S.pendingRecs[i].dim===dimId)return;}
-    var signal=getRecDiagnostic(dimId,S.ap,S.part,S.year,S.tree);
-    var tier=REC_TIERS[signal];
-    if(S.polcap<tier.cost)return;
-    S.polcap=Math.max(0,S.polcap-tier.cost);
-    var guaranteed=S.guaranteedRec;
-    if(guaranteed)S.guaranteedRec=false;
-    S.pendingRecs.push({dim:dimId,year:S.year,signal:signal,probMod:tier.probMod,guaranteed:guaranteed,cost:tier.cost});
-    S.recsIssued++;
-    R.go();
-  },
-  unissueRec:function(dimId){
-    // Lets the player change their mind before the year locks in — refunds the
-    // exact PC spent and restores a consumed guaranteeNextRec trade, if any.
-    for(var i=0;i<S.pendingRecs.length;i++){
-      if(S.pendingRecs[i].dim!==dimId)continue;
-      var rec=S.pendingRecs[i];
-      S.polcap=Math.min(100,S.polcap+(rec.cost||0));
-      if(rec.guaranteed)S.guaranteedRec=true;
-      S.pendingRecs.splice(i,1);
-      S.recsIssued--;
-      break;
-    }
-    R.go();
-  },
-  skipRecs:function(){
-    // Explicit skip - bank PC, show flavor note
-    S.recSkippedNote='You held your capital. The signal was not strong enough to act on yet.';
-    R.go();
-  },
   restart:function(){S.phase='diff';R.go();},
   toggleTrending:function(){S.showTrending=!S.showTrending;R.go();},
   toggleSound:function(){
