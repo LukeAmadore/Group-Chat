@@ -948,7 +948,7 @@ var YEAR_POOLS = {
      scenario:'Sam &#8212; never loud about it, never a problem &#8212; has quietly been helping a couple of newer partners-of-friends feel like they belong, the way she wishes someone had done for her. No one asked her to.',
      opts:[
       {id:'a',badge:'APPROVE INFORMALLY',text:'Let her keep doing it without making it official.',slots:0,bud:0,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Low cost, modest impact.'}},
-      {id:'b',badge:'GIVE IT STRUCTURE',text:'Help her set a real cadence for it.',slots:1,bud:0,pc:0,req:null,con:{trust:2,ap:1,part:0,note:'More likely to stick.'}},
+      {id:'b',badge:'CALL IN A FAVOR TO HELP HER',text:'Spend some goodwill getting the right people to actually make time for it.',slots:1,bud:0,pc:15,req:{pc:15},con:{trust:3,ap:1,part:0,note:'More likely to stick, because people showed up for it.'}},
       {id:'c',badge:'FORMALIZE AS PART OF THE TREE',text:'Turn her quiet effort into an actual, real thing.',slots:1,bud:0,pc:0,req:{node:'mgr-l3'},con:{trust:4,ap:2,part:0,note:'Her quiet effort becomes an actual, lasting thing.'}}
      ]},
     // RESOURCE_TRADEOFF shape x3
@@ -964,7 +964,7 @@ var YEAR_POOLS = {
      scenario:'A mutual friend cites another friend group\'s weekly hangouts as proof yours is falling short &#8212; without mentioning that group all lives in the same apartment building.',
      opts:[
       {id:'a',badge:'LET IT GO UNCHALLENGED',text:'Responding might just prolong the comparison.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Avoids conflict, leaves the comparison to stand.'}},
-      {id:'b',badge:'QUIETLY CORRECT THE RECORD',text:'Mention the actual difference, once, without making a thing of it.',slots:1,bud:12,pc:0,req:null,con:{trust:0,ap:0,part:2,note:'A quiet correction, gently made.'}},
+      {id:'b',badge:'HAVE SOMEONE ELSE SAY IT',text:'Call in a favor to have the mutual friend hear the real version from someone she trusts more.',slots:1,bud:0,pc:15,req:{pc:15},con:{trust:1,ap:0,part:2,note:'Lands better coming from someone else.'}},
       {id:'c',badge:'MAKE THE REAL CASE',text:'Show exactly why staying close across real distance is the harder, more honest thing.',slots:1,bud:0,pc:0,req:{node:'comms-l2'},con:{trust:3,ap:1,part:3,note:'Shows exactly why staying close across distance is the harder, more honest thing.'}}
      ]},
     // CAPACITY_MECHANIC shape x3
@@ -1031,7 +1031,7 @@ var YEAR_POOLS = {
      scenario:'Aisha asks, almost offhand, what happens to all of this if you stepped back tomorrow. It\'s Year 4. The question lands differently than it would have in Year 1.',
      opts:[
       {id:'a',badge:'SAY IT\'S TOO EARLY TO THINK ABOUT',text:'Deflect for now. Focus on Year 5.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Avoids the question.'}},
-      {id:'b',badge:'START QUIETLY PASSING THINGS ON',text:'Begin handing small pieces to other people, just in case.',slots:1,bud:0,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Modest insurance.'}},
+      {id:'b',badge:'CASH IN A FAVOR TO TEST IT',text:'Spend some goodwill actually handing a real piece of this to someone else, to see if it holds.',slots:1,bud:0,pc:15,req:{pc:15},con:{trust:2,ap:0,part:0,note:'It holds. Modest insurance, proven rather than assumed.'}},
       {id:'c',badge:'NAME IT OUT LOUD',text:'Tell Aisha this will be a real focus in the final year.',slots:0,bud:0,pc:0,req:{node:'se-l2'},con:{trust:3,ap:0,part:0,note:'Aisha feels reassured this will outlast any one person.'}}
      ]},
     // RELATIONSHIP shape x3
@@ -1047,7 +1047,7 @@ var YEAR_POOLS = {
      scenario:'Aisha asks whether the effort you\'ve put in actually caused people to grow closer, or whether everyone\'s just having a good stretch of life right now, coincidentally.',
      opts:[
       {id:'a',badge:'ACKNOWLEDGE THE LIMITATION',text:'Be honest that you can\'t fully separate the two.',slots:0,bud:0,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Honest, if unsatisfying.'}},
-      {id:'b',badge:'TALK IT THROUGH',text:'Actually walk through it with her.',slots:1,bud:30,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Buys real credibility with her.'}},
+      {id:'b',badge:'CALL IN OTHERS TO BACK IT UP',text:'Spend goodwill getting a couple other people to back up what you\'re saying.',slots:1,bud:0,pc:20,req:{pc:20},con:{trust:3,ap:0,part:0,note:'It lands better coming from more than just you.'}},
       {id:'c',badge:'SHOW HER THE PATTERN',text:'Point to specific people, specific moments, specific effort.',slots:1,bud:0,pc:0,req:{node:'mgr-l3'},con:{trust:4,ap:1,part:0,note:'A real pattern makes the case convincingly.'}}
      ]},
     // DATA_INTEGRITY shape x3
@@ -1121,7 +1121,7 @@ var YEAR_POOLS = {
      scenario:'Before the final check-in, you get one read on how everyone actually feels about the five years behind them.',
      opts:[
       {id:'a',badge:'TAKE IT AT FACE VALUE',text:'Whatever the read says, that\'s the read.',slots:0,bud:0,pc:0,req:null,con:{trust:0,ap:0,part:0,note:'Simple, unfiltered.'}},
-      {id:'b',badge:'DIG ONE LAYER DEEPER',text:'Follow up with a few people directly before drawing conclusions.',slots:1,bud:0,pc:0,req:null,con:{trust:1,ap:1,part:0,note:'More texture, more confidence in the read.'}},
+      {id:'b',badge:'CALL IN THE GOODWILL TO ASK DIRECTLY',text:'Spend some goodwill getting a few people to actually open up before drawing conclusions.',slots:1,bud:0,pc:15,req:{pc:15},con:{trust:2,ap:1,part:0,note:'More texture, more confidence in the read &#8212; because people actually told you the truth.'}},
       {id:'c',badge:'CROSS-REFERENCE THE WHOLE FIVE YEARS',text:'Compare this read against every prior year\'s pattern.',slots:1,bud:0,pc:0,req:{node:'infra-l2'},con:{trust:2,ap:1,part:0,note:'The clearest possible picture of where things actually stand.'}}
      ]},
     // RELATIONSHIP shape x3
@@ -1137,7 +1137,7 @@ var YEAR_POOLS = {
      scenario:'Ben wants a single number: what does it cost to keep everything running exactly as-is for one more year, no changes.',
      opts:[
       {id:'a',badge:'GIVE A CONSERVATIVE ESTIMATE',text:'Round down to make it feel easy.',slots:0,bud:0,pc:0,req:null,con:{trust:1,ap:0,part:0,note:'Easy to accept.'}},
-      {id:'b',badge:'GIVE THE FULL NUMBER',text:'Be honest about what it actually takes.',slots:0,bud:0,pc:0,req:null,con:{trust:2,ap:0,part:0,note:'Honest, harder to hear.'}},
+      {id:'b',badge:'GET SOMEONE ELSE TO BACK YOU UP',text:'Spend goodwill getting someone Ben trusts on numbers to back you up.',slots:0,bud:0,pc:15,req:{pc:15},con:{trust:3,ap:0,part:0,note:'Honest, and it lands better with a second voice behind it.'}},
       {id:'c',badge:'BUILD THE FULL CASE',text:'Present the complete picture with the case for keeping it.',slots:2,bud:0,pc:0,req:{node:'infra-l3'},con:{trust:5,ap:0,part:0,note:'Ben has everything he needs to actually believe the number.'}}
      ]},
     // DATA_INTEGRITY shape x3
